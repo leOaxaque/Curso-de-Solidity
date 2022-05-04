@@ -27,6 +27,11 @@ def main():
     
 
     print("withdraw from Faucet")
+    #vamos a estimar la cantidad de ether que nos va a costar interactuar con nuestro contrato
+    web3_f = web3.eth.contract(address=f.address, abi=f.abi)#con el método contract btendremos toda información que hay en la blockchain acerca de nuestro contrato
+    estimated_gas = web3_f.functions.withdraw(web3.toWei(0.1, "ether")).estimateGas()#con esta función estimamos el gasto de ether que vamos a hacer por interactuar con el método withdraw
+    print(f"Est. Gas:  {estimated_gas}\n")
+    
     f.withdraw(web3.toWei(0.1, "ether"), {'from': act})#accedemos al método witdraw de la faucet para retirarle un monto
                                                       #con el método we3.toWei podemos transformar las cantidad de ethereum
                                                       #a wei para que sea más legible el código, from inidca la dirección que
